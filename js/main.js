@@ -29,3 +29,24 @@ checkPalindrome('ДовОд'); // true
 checkPalindrome('Кекс'); // false
 // Это палиндром
 checkPalindrome('Лёша на полке клопа нашёл '); // true
+
+function getNumber(string) {
+  string = string.toString();
+  let number = '';
+
+  for (let i = 0; i < string.length; i++) {
+    let charset = string[i];
+
+    charset = parseInt(charset, 10);
+
+    number += !isNaN(charset) ? charset : '';
+  }
+
+  return parseInt(number, 10);
+}
+
+getNumber('2023 год'); // 2023
+getNumber('ECMAScript 2022'); // 2022
+getNumber('1 кефир, 0.5 батона'); // 105
+getNumber('агент 007'); // 7
+getNumber('а я томат'); // NaN
