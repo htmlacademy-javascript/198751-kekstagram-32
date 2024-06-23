@@ -1,6 +1,6 @@
-function checkLengthString(scring, length) {
-  return scring.length <= length;
-}
+// Функция для проверки длины строки.Она принимает строку, которую нужно проверить, и максимальную длину и возвращает true, если строка меньше или равна указанной длине, и false, если строка длиннее.Эта функция нам пригодится для валидации формы.
+
+const checkLengthString = (scring, length) => scring.length <= length;
 
 // Строка короче 20 символов
 checkLengthString('проверяемая строка', 20); // true
@@ -9,16 +9,12 @@ checkLengthString('проверяемая строка', 18); // true
 // Строка длиннее 10 символов
 checkLengthString('проверяемая строка', 10); // false
 
-function checkPalindrome(string) {
-  let newString = '';
+// Функция для проверки, является ли строка палиндромом. Палиндром— это слово или фраза, которые одинаково читаются и слева направо и справа налево.
 
+const checkPalindrome = string => {
   string = string.replaceAll(' ', '').toLowerCase();
 
-  for (let i = string.length - 1; i >= 0; i--) {
-    newString += string[i];
-  }
-
-  return newString === string;
+  return string.split('').reverse().join('') === string;
 }
 
 // Строка является палиндромом
@@ -30,16 +26,14 @@ checkPalindrome('Кекс'); // false
 // Это палиндром
 checkPalindrome('Лёша на полке клопа нашёл '); // true
 
-function getNumber(string) {
+// Функция принимает строку, извлекает содержащиеся в ней цифры от 0 до 9 и возвращает их в виде целого положительного числа.Если в строке нет ни одной цифры, функция должна вернуть NaN
+
+const getNumber = string => {
   string = string.toString();
   let number = '';
 
   for (let i = 0; i < string.length; i++) {
-    let charset = string[i];
-
-    charset = parseInt(charset, 10);
-
-    number += !isNaN(charset) ? charset : '';
+    number += !Number.isNaN(parseInt(string[i], 10)) ? string[i] : '';
   }
 
   return parseInt(number, 10);
