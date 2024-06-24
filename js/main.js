@@ -11,11 +11,11 @@ checkLengthString('проверяемая строка', 10); // false
 
 // Функция для проверки, является ли строка палиндромом. Палиндром— это слово или фраза, которые одинаково читаются и слева направо и справа налево.
 
-const checkPalindrome = string => {
+const checkPalindrome = (string) => {
   string = string.replaceAll(' ', '').toLowerCase();
 
   return string.split('').reverse().join('') === string;
-}
+};
 
 // Строка является палиндромом
 checkPalindrome('топот'); // true
@@ -28,7 +28,7 @@ checkPalindrome('Лёша на полке клопа нашёл '); // true
 
 // Функция принимает строку, извлекает содержащиеся в ней цифры от 0 до 9 и возвращает их в виде целого положительного числа.Если в строке нет ни одной цифры, функция должна вернуть NaN
 
-const getNumber = string => {
+const getNumber = (string) => {
   string = string.toString();
   let number = '';
 
@@ -37,7 +37,7 @@ const getNumber = string => {
   }
 
   return parseInt(number, 10);
-}
+};
 
 getNumber('2023 год'); // 2023
 getNumber('ECMAScript 2022'); // 2022
