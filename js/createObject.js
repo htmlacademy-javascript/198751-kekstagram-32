@@ -1,5 +1,9 @@
-import { getRandomInt } from './getRandomInt.js';
-import { data } from './data.js';
+import {
+  getRandomInt
+} from './getRandomInt.js';
+import {
+  data
+} from './data.js';
 
 const getRandomIntFromGenerator = (min, max) => {
   const arrNumberBefore = [];
@@ -10,7 +14,6 @@ const getRandomIntFromGenerator = (min, max) => {
     if (arrNumberBefore.length >= (max - min + 1)) {
       return null;
     }
-
 
     while (arrNumberBefore.includes(currentNumber)) {
       currentNumber = getRandomInt(min, max);
@@ -28,20 +31,36 @@ const createCountLike = getRandomIntFromGenerator(15, 200);
 const createCountDescription = getRandomIntFromGenerator(0, 24);
 const createTextDescription = () => data.description[createCountDescription()];
 
+const createNamePhothos = getRandomIntFromGenerator(1, 25);
+const createUrlPhothos = () => `img/${createNamePhothos()}.jpg`;
+
+const createUrlAvatar = () => `img/${createNamePhothos()}.svg`;
 const createCountComments = getRandomIntFromGenerator(0, 29);
 const createTextComments = () => data.comments[createCountComments()];
-
-const createNamePhothos = getRandomIntFromGenerator(1, 25);
-const createUrlPhothos = () => `/${createNamePhothos()}.jpg`;
-
-const createObject = () => (
+const createCommentsId = getRandomIntFromGenerator(1, 30);
+const createNameCount = getRandomIntFromGenerator(1, 30);
+const createComments = () => (
   {
-    id: createId(),
-    likes: createCountLike(),
-    url: createUrlPhothos(),
-    description: createTextDescription(),
-    comments: createTextComments()
+    id: createCommentsId(),
+    avatar: createUrlAvatar(),
+    message: createTextComments(),
+    name: data.name[createNameCount()]
   }
 );
 
-export { createObject };
+const createObjectTextComments = () =>
+  Array.from({
+    length: getRandomInt(0, 29)
+  }, createComments);
+
+const createArrayPhotos = () => ({
+  id: createId(),
+  likes: createCountLike(),
+  url: createUrlPhothos(),
+  description: createTextDescription(),
+  comments: createObjectTextComments()
+});
+
+export {
+  createArrayPhotos
+};

@@ -1,9 +1,9 @@
-import { createObject } from './createObject.js';
+import { createArrayPhotos } from './createObject.js';
 
 const COUNT_COMMENTS = 25;
 
-const arrayForCommets = Array.from({ length: COUNT_COMMENTS }, createObject);
+const arrayPhotos = Array.from({ length: COUNT_COMMENTS }, createArrayPhotos);
 
-// console.table(arrayForCommets);
+// console.table(arrayPhotos);
 
-void (arrayForCommets);
+void (arrayPhotos);
