@@ -1,59 +1,46 @@
 import {
-  getRandomInt
-} from './getRandomInt.js';
-import {
   data
 } from './data.js';
 
-const getRandomIntFromGenerator = (min, max) => {
-  const arrNumberBefore = [];
+import {
+  getRandomInt
+} from './getRandomInt.js';
 
-  return function () {
-    let currentNumber = getRandomInt(min, max);
+import {
+  getRandomIntRange
+} from './getRandomIntRange.js';
 
-    if (arrNumberBefore.length >= (max - min + 1)) {
-      return null;
-    }
+import {
+  isCount
+} from './isCount.js';
 
-    while (arrNumberBefore.includes(currentNumber)) {
-      currentNumber = getRandomInt(min, max);
-    }
+const createId = getRandomIntRange(1, 25);
+const createCountLike = getRandomIntRange(15, 200);
 
-    arrNumberBefore.push(currentNumber);
-
-    return currentNumber;
-  };
-};
-
-const createId = getRandomIntFromGenerator(1, 25);
-const createCountLike = getRandomIntFromGenerator(15, 200);
-
-const createCountDescription = getRandomIntFromGenerator(0, 24);
+const createCountDescription = getRandomIntRange(0, 24);
 const createTextDescription = () => data.description[createCountDescription()];
 
-const createNamePhothos = getRandomIntFromGenerator(1, 25);
+const createNamePhothos = getRandomIntRange(1, 25);
 const createUrlPhothos = () => `img/${createNamePhothos()}.jpg`;
 
-const createUrlAvatar = () => `img/${createNamePhothos()}.svg`;
-const createCountComments = getRandomIntFromGenerator(0, 29);
-const createTextComments = () => data.comments[createCountComments()];
-const createCommentsId = getRandomIntFromGenerator(1, 30);
-const createNameCount = getRandomIntFromGenerator(1, 30);
-const createComments = () => (
-  {
-    id: createCommentsId(),
-    avatar: createUrlAvatar(),
-    message: createTextComments(),
-    name: data.name[createNameCount()]
-  }
-);
+const createUrlAvatar = () => `img/${getRandomInt(1, 6)}.svg`;
+const createTextComments = () => data.comments[getRandomInt(1, 6)];
+const createCommentsId = isCount();
+
+const createComments = () => ({
+  id: createCommentsId(),
+  avatar: createUrlAvatar(),
+  message: createTextComments(),
+  name: data.name[getRandomInt(1, 30)]
+});
 
 const createObjectTextComments = () =>
   Array.from({
     length: getRandomInt(0, 29)
   }, createComments);
 
-const createArrayPhotos = () => ({
+
+const createObjectPhotos = () => ({
   id: createId(),
   likes: createCountLike(),
   url: createUrlPhothos(),
@@ -62,5 +49,5 @@ const createArrayPhotos = () => ({
 });
 
 export {
-  createArrayPhotos
+  createObjectPhotos
 };
