@@ -31,7 +31,7 @@ const createComments = () => ({
   id: createCommentsId(),
   avatar: createUrlAvatar(),
   message: createTextComments(),
-  name: data.name[getRandomInt(1, 30)]
+  name: data.name[getRandomInt(0, 29)]
 });
 
 const createObjectTextComments = () =>
