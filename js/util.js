@@ -1,12 +1,9 @@
 const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
-const isCount = () => {
-  let count = 0;
-
-  return function () {
+const isCount = (count = 0) =>
+  function () {
     return count++;
   };
-};
 
 const getRandomIntRange = (min, max) => {
   const arrNumberBefore = [];
