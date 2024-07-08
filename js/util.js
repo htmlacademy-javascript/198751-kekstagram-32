@@ -1,6 +1,9 @@
-import {
-  getRandomInt
-} from './getRandomInt.js';
+const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+
+const isCount = (count = 0) =>
+  function () {
+    return count++;
+  };
 
 const getRandomIntRange = (min, max) => {
   const arrNumberBefore = [];
@@ -22,4 +25,8 @@ const getRandomIntRange = (min, max) => {
   };
 };
 
-export { getRandomIntRange };
+export {
+  getRandomIntRange,
+  isCount,
+  getRandomInt
+};
