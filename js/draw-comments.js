@@ -8,7 +8,7 @@ const drawComments = (parentBlock, data) => {
 
   });
 
-  // void (data);
+  void (data);
 };
 
 export { drawComments };
