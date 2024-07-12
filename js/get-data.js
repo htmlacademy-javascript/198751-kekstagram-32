@@ -105,7 +105,7 @@ const createCountDescription = getRandomIntRange(0, 24);
 const createTextDescription = () => data.description[createCountDescription()];
 
 const createNamePhothos = getRandomIntRange(1, 25);
-const createUrlPhothos = () => `img/${createNamePhothos()}.jpg`;
+const createUrlPhothos = () => `photos/${createNamePhothos()}.jpg`;
 
 const createUrlAvatar = () => `img/avatar-${getRandomInt(1, 6)}.svg`;
 const createTextComments = () => data.comments[getRandomInt(1, 6)];
