@@ -1,9 +1,12 @@
 import { getData } from './get-data.js';
+import { drawThumnail } from './draw-thumnail.js';
+import { drawComments } from './draw-comments.js';
 
-const COUNT_COMMENTS = 25;
+const COUNT_PHOTOS = 25;
 
-const arrayPhotos = Array.from({ length: COUNT_COMMENTS }, getData);
+const arrayPhotos = Array.from({ length: COUNT_PHOTOS }, getData);
 
-// console.table(arrayPhotos);
+drawThumnail(arrayPhotos, document.querySelector('.pictures'));
 
-void (arrayPhotos);
+// просто отменяю клик на ссылку грубо и неправильно
+drawComments(document.querySelector('.pictures'), arrayPhotos);
