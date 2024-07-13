@@ -9,4 +9,4 @@ const arrayPhotos = Array.from({ length: COUNT_PHOTOS }, getData);
 drawThumnail(arrayPhotos, document.querySelector('.pictures'));
 
 // просто отменяю клик на ссылку грубо и неправильно
-drawComments(document.querySelector('.pictures'), arrayPhotos);
+drawComments(document.querySelector('.pictures'), document.querySelector('.big-picture'), arrayPhotos);
