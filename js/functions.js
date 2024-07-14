@@ -64,13 +64,9 @@ getNumber('а я томат'); // NaN
 //   return true;
 // };
 
-const isFullTime = (time) => time.split(':')[0] * 60 + (+time.split(':')[1]);
+const isFullTime = (time) => time.split(':')[0] * 60 + (Number(time.split(':')[1]));
 
 const isWorkTime = (startWorkTime, endWorkTime, startMeetTime, lengthMeet) =>
   isFullTime(startMeetTime) < isFullTime(startWorkTime) ? false : !(isFullTime(startMeetTime) + lengthMeet > isFullTime(endWorkTime));
 
-console.log(isWorkTime('08:00', '17:30', '14:00', 90)); // true
-console.log(isWorkTime('8:0', '10:0', '8:0', 120)); // true
-console.log(isWorkTime('08:00', '14:30', '14:00', 90)); // false
-console.log(isWorkTime('14:00', '17:30', '08:0', 90)); // false
-console.log(isWorkTime('8:00', '17:30', '08:00', 900)); // false
+void (isWorkTime);
