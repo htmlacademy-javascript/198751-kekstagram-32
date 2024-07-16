@@ -19,6 +19,7 @@ const createCooments = (comments, link) => {
     document.querySelector('.comments-loader').classList.add('hidden');
     document.querySelector('.comments-loader').removeEventListener('click', onCommentsLoadClick);
   } else {
+    endCreate = startCreate + MAX_FIRST_RENDER_COMMENTS;
     document.querySelector('.comments-loader').addEventListener('click', onCommentsLoadClick);
     link.dataset.start = endCreate;
   }
