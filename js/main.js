@@ -6,6 +6,6 @@ const COUNT_PHOTOS = 25;
 
 const arrayPhotos = Array.from({ length: COUNT_PHOTOS }, getData);
 
-drawThumnail(arrayPhotos, document.querySelector('.pictures'));
+drawThumnail(arrayPhotos);
 
-onThumnailClick(document.querySelector('.pictures'), document.querySelector('.big-picture'), arrayPhotos);
+onThumnailClick(arrayPhotos);
