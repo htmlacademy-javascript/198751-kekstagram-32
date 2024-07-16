@@ -1,22 +1,26 @@
 const createCooments = (comments, link) => {
-  let endCountComments;
 
-  const startCountComments = Number(link.dataset.start);
+  document.querySelector('.comments-loader').classList.remove('hidden');
+  document.querySelector('.social__comment-count').classList.remove('hidden');
+  if (comments.length === 0) {
+    document.querySelector('.comments-loader').classList.add('hidden');
+    document.querySelector('.social__comment-count').classList.add('hidden');
+  }
 
-  if (startCountComments + 5 <= comments.length) {
-    endCountComments = startCountComments + 5;
-    link.dataset.start = endCountComments;
-  } else {
-    endCountComments = comments.length;
+  const startCreate = link.dataset.start;
+  let endCreate = Number(startCreate + 5);
+
+  if (endCreate >= comments.length) {
+    endCreate = comments.length;
     document.querySelector('.comments-loader').classList.add('hidden');
   }
 
-  document.querySelector('.social__comment-shown-count').innerText = endCountComments;
+  document.querySelector('.social__comment-shown-count').innerText = endCreate;
   document.querySelector('.social__comment-total-count').innerText = comments.length;
 
   const commentsFragment = document.createDocumentFragment();
 
-  for (let i = startCountComments; i < endCountComments; i++) {
+  for (let i = startCreate; i < endCreate; i++) {
     const element = comments[i];
 
     const item = document.createElement('li');
@@ -41,7 +45,7 @@ const createCooments = (comments, link) => {
   socialComments.append(commentsFragment);
 };
 
-const renderComments = ({
+const showModal = ({
   url,
   description,
   likes,
@@ -57,15 +61,6 @@ const renderComments = ({
   const socialComments = document.querySelector('.social__comments');
 
   socialComments.innerHTML = '';
-
-  if (comments.length === 0) {
-    document.querySelector('.comments-loader').classList.add('hidden');
-    document.querySelector('.social__comment-count').classList.add('hidden');
-  }
-
-  if (comments.length === 5) {
-    document.querySelector('.comments-loader').classList.add('hidden');
-  }
 
   createCooments(comments, link);
 
@@ -95,17 +90,16 @@ const onThumnailClick = (data) => {
     if (!e.target.closest('a')) {
       return;
     }
+    e.preventDefault();
 
     const bigPicture = document.querySelector('.big-picture');
-
-    e.preventDefault();
     bigPicture.classList.remove('hidden');
+    document.body.classList.add('modal-open');
 
     const idPicture = Number(e.target.closest('a').dataset.id);
     const objectCurrentPhoto = data[data.findIndex((elem) => elem.id === idPicture)];
-    renderComments(objectCurrentPhoto, e.target.closest('a'));
+    showModal(objectCurrentPhoto, e.target.closest('a'));
 
-    document.body.classList.add('modal-open');
 
     document.addEventListener('keydown', onParentBlockThumnailKeydown);
     bigPicture.querySelector('.big-picture__cancel').addEventListener('click', closeModal);
