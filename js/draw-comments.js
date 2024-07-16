@@ -1,18 +1,30 @@
+const MAX_FIRST_RENDER_COMMENTS = 5;
+
 const createCooments = (comments, link) => {
 
   document.querySelector('.comments-loader').classList.remove('hidden');
   document.querySelector('.social__comment-count').classList.remove('hidden');
+
   if (comments.length === 0) {
     document.querySelector('.comments-loader').classList.add('hidden');
     document.querySelector('.social__comment-count').classList.add('hidden');
   }
 
   const startCreate = link.dataset.start;
-  let endCreate = Number(startCreate + 5);
+  let endCreate = Number(startCreate + MAX_FIRST_RENDER_COMMENTS);
 
   if (endCreate >= comments.length) {
     endCreate = comments.length;
+    link.dataset.start = endCreate;
     document.querySelector('.comments-loader').classList.add('hidden');
+    document.querySelector('.comments-loader').removeEventListener('click', onCommentsLoadClick);
+  } else {
+    document.querySelector('.comments-loader').addEventListener('click', onCommentsLoadClick);
+    link.dataset.start = endCreate;
+  }
+
+  function onCommentsLoadClick() {
+    createCooments(comments, link);
   }
 
   document.querySelector('.social__comment-shown-count').innerText = endCreate;
@@ -41,8 +53,10 @@ const createCooments = (comments, link) => {
     item.append(textComment);
     commentsFragment.append(item);
   }
+
   const socialComments = document.querySelector('.social__comments');
   socialComments.append(commentsFragment);
+
 };
 
 const showModal = ({
