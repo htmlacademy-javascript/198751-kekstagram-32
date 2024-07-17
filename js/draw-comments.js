@@ -1,6 +1,9 @@
 const MAX_FIRST_RENDER_COMMENTS = 5;
 
-const createCooments = (comments, link) => {
+const createCooments = (comments) => {
+
+
+  const bigPicture = document.querySelector('.big-picture');
 
   document.querySelector('.comments-loader').classList.remove('hidden');
   document.querySelector('.social__comment-count').classList.remove('hidden');
@@ -10,22 +13,22 @@ const createCooments = (comments, link) => {
     document.querySelector('.social__comment-count').classList.add('hidden');
   }
 
-  const startCreate = link.dataset.start;
+  const startCreate = Number(bigPicture.dataset.start);
   let endCreate = Number(startCreate + MAX_FIRST_RENDER_COMMENTS);
 
-  if (endCreate >= comments.length) {
+  if (endCreate > comments.length) {
     endCreate = comments.length;
-    link.dataset.start = endCreate;
+    bigPicture.dataset.start = endCreate;
     document.querySelector('.comments-loader').classList.add('hidden');
     document.querySelector('.comments-loader').removeEventListener('click', onCommentsLoadClick);
   } else {
     endCreate = startCreate + MAX_FIRST_RENDER_COMMENTS;
     document.querySelector('.comments-loader').addEventListener('click', onCommentsLoadClick);
-    link.dataset.start = endCreate;
+    bigPicture.dataset.start = endCreate;
   }
 
   function onCommentsLoadClick() {
-    createCooments(comments, link);
+    createCooments(comments);
   }
 
   document.querySelector('.social__comment-shown-count').innerText = endCreate;
@@ -65,9 +68,11 @@ const showModal = ({
   description,
   likes,
   comments
-}, link) => {
+}) => {
+
   const bigPicture = document.querySelector('.big-picture');
 
+  bigPicture.dataset.start = 0;
   bigPicture.querySelector('.big-picture__img img').src = url;
   bigPicture.querySelector('.big-picture__img img').alt = description;
   bigPicture.querySelector('.likes-count').innerText = likes;
@@ -77,7 +82,7 @@ const showModal = ({
 
   socialComments.innerHTML = '';
 
-  createCooments(comments, link);
+  createCooments(comments);
 
 };
 
