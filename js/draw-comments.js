@@ -23,6 +23,8 @@ const onThumnailClick = (data) => {
       document.querySelector('.social__comment-count').classList.add('hidden');
     }
 
+    // добавить проверку на === 5
+
     const startCreate = Number(bigPicture.dataset.start);
     let endCreate = Number(startCreate + MAX_FIRST_RENDER_COMMENTS);
 
