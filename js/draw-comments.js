@@ -8,7 +8,7 @@ const onThumnailClick = (data) => {
   const createComents = (comments) => {
     if (!Array.isArray(comments)) {
       // не могу получить текущий элемент
-      comments = data[data.findIndex((elem) => elem.id === Number(bigPicture.dataset.id))];
+      comments = data[data.findIndex((elem) => elem.id === Number(bigPicture.dataset.id))];//.comments
       // id элемента лежит в bigPicture.dataset.id
       // выводил в консоль проверяемые элементы, дожна была сработать проверка, так как сравнивались именно цифры, и была пара схожих
       // ниже этот же способ работает, но получает значение атрибута из другого элемента
