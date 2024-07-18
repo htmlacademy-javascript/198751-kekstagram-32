@@ -1,19 +1,14 @@
 const MAX_FIRST_RENDER_COMMENTS = 5;
 
 const onThumnailClick = (data) => {
-
+  // понимаю что тут не очень, в планах переделать
   const parentBlockThumnail = document.querySelector('.pictures');
   const bigPicture = document.querySelector('.big-picture');
 
   const createComents = (comments) => {
     if (!Array.isArray(comments)) {
-      // не могу получить текущий элемент
-      comments = data[data.findIndex((elem) => elem.id === Number(bigPicture.dataset.id))];//.comments
-      // id элемента лежит в bigPicture.dataset.id
-      // выводил в консоль проверяемые элементы, дожна была сработать проверка, так как сравнивались именно цифры, и была пара схожих
-      // ниже этот же способ работает, но получает значение атрибута из другого элемента
+      comments = data[data.findIndex((elem) => elem.id === Number(bigPicture.dataset.id))].comments;
     }
-
 
     document.querySelector('.comments-loader').classList.remove('hidden');
     document.querySelector('.social__comment-count').classList.remove('hidden');
@@ -21,9 +16,8 @@ const onThumnailClick = (data) => {
     if (comments.length === 0) {
       document.querySelector('.comments-loader').classList.add('hidden');
       document.querySelector('.social__comment-count').classList.add('hidden');
+      return;
     }
-
-    // добавить проверку на === 5
 
     const startCreate = Number(bigPicture.dataset.start);
     let endCreate = Number(startCreate + MAX_FIRST_RENDER_COMMENTS);
@@ -31,10 +25,13 @@ const onThumnailClick = (data) => {
     if (endCreate > comments.length) {
       endCreate = comments.length;
       bigPicture.dataset.start = endCreate;
-      document.querySelector('.comments-loader').classList.add('hidden');
     } else {
       endCreate = startCreate + MAX_FIRST_RENDER_COMMENTS;
       bigPicture.dataset.start = endCreate;
+    }
+
+    if (endCreate === comments.length) {
+      document.querySelector('.comments-loader').classList.add('hidden');
     }
 
     document.querySelector('.social__comment-shown-count').innerText = endCreate;
@@ -42,14 +39,11 @@ const onThumnailClick = (data) => {
 
     const commentsFragment = document.createDocumentFragment();
 
-    // переделать на slice()
-    for (let i = startCreate; i < endCreate; i++) {
-      const {
-        avatar,
-        message,
-        name
-      } = comments[i];
-
+    comments.slice(startCreate, endCreate).forEach(({
+      avatar,
+      message,
+      name
+    }) => {
       const item = document.createElement('li');
       item.classList.add('social__comment');
 
@@ -67,11 +61,10 @@ const onThumnailClick = (data) => {
       item.append(ava);
       item.append(textComment);
       commentsFragment.append(item);
-    }
+    });
 
     const socialComments = document.querySelector('.social__comments');
     socialComments.append(commentsFragment);
-
   };
 
   const onCommentsLoaderClick = (comments) => {
@@ -109,7 +102,6 @@ const onThumnailClick = (data) => {
   };
 
   parentBlockThumnail.addEventListener('click', (e) => {
-
     if (!e.target.closest('a')) {
       return;
     }
@@ -125,18 +117,15 @@ const onThumnailClick = (data) => {
 
     document.addEventListener('keydown', onParentBlockThumnailKeydown);
     bigPicture.querySelector('.big-picture__cancel').addEventListener('click', closeModal);
-
   });
 
   function closeModal() {
-
     document.body.classList.remove('modal-open');
     bigPicture.classList.add('hidden');
     document.removeEventListener('keydown', onParentBlockThumnailKeydown);
     bigPicture.querySelector('.big-picture__cancel').removeEventListener('click', closeModal);
     document.querySelector('.comments-loader').removeEventListener('click', onCommentsLoaderClick);
   }
-
 };
 
 export {
