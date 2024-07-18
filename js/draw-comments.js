@@ -5,7 +5,7 @@ const onThumnailClick = (data) => {
   const parentBlockThumnail = document.querySelector('.pictures');
   const bigPicture = document.querySelector('.big-picture');
 
-  const createCooments = (comments) => {
+  const createComents = (comments) => {
     if (!Array.isArray(comments)) {
       // не могу получить текущий элемент
       comments = data[data.findIndex((elem) => elem.id === Number(bigPicture.dataset.id))];
@@ -40,6 +40,7 @@ const onThumnailClick = (data) => {
 
     const commentsFragment = document.createDocumentFragment();
 
+    // переделать на slice()
     for (let i = startCreate; i < endCreate; i++) {
       const {
         avatar,
@@ -72,7 +73,7 @@ const onThumnailClick = (data) => {
   };
 
   const onCommentsLoaderClick = (comments) => {
-    createCooments(comments);
+    createComents(comments);
   };
 
   const showModal = ({
@@ -94,7 +95,7 @@ const onThumnailClick = (data) => {
 
     socialComments.innerHTML = '';
 
-    createCooments(comments);
+    createComents(comments);
 
     document.querySelector('.comments-loader').addEventListener('click', onCommentsLoaderClick);
   };
