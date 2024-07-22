@@ -1,3 +1,5 @@
+import { isEscKey } from './util';
+
 const MAX_FIRST_RENDER_COMMENTS = 5;
 
 const onThumnailClick = (data) => {
@@ -96,7 +98,7 @@ const onThumnailClick = (data) => {
   };
 
   const onParentBlockThumnailKeydown = (evt) => {
-    if (evt.code === 'Escape') {
+    if (isEscKey(evt)) {
       closeModal();
     }
   };
