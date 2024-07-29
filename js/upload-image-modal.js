@@ -1,5 +1,5 @@
 import { isEscKey } from './util';
-
+import { clearValidator } from './form';
 const uploadImageModal = () => {
   const imgUploadInput = document.querySelector('.img-upload__input');
   const imgUploadOverlay = document.querySelector('.img-upload__overlay');
@@ -25,6 +25,8 @@ const uploadImageModal = () => {
 
     document.removeEventListener('keydown', onFormKeydown);
     imgUploadCancel.removeEventListener('click', closeModal);
+    document.querySelector('.img-upload__form').reset();
+    clearValidator();
   }
 };
 

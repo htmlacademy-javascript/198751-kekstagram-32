@@ -61,13 +61,20 @@ const isErrorHashtag = (value) => {
 
 const getHashtagErrorMessage = () => errorMessage.hashtag;
 
+const pristine = new Pristine(uploadFormImg, options, true);
+
 const form = () => {
-  const pristine = new Pristine(uploadFormImg, options, true);
 
   pristine.addValidator(textDescription, isErrorDescription, errorMessage.description);
   pristine.addValidator(textHashtag, isErrorHashtag, getHashtagErrorMessage);
 };
 
+const clearValidator = () => {
+  pristine.reset();
+  pristine.destroy();
+};
+
 export {
-  form
+  form,
+  clearValidator
 };
