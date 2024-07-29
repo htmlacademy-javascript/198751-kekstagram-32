@@ -8,10 +8,15 @@ const textHashtag = document.querySelector('.text__hashtags');
 
 const options = {
   classTo: 'img-upload__field-wrapper',
-  errorTextParent: 'img-upload__field-wrapper'
+  errorTextParent: 'img-upload__field-wrapper',
+  errorTextClass: 'img-upload__field-wrapper--error'
 };
 
-const descriptionMessage = `длина комментария не может составлять больше ${MAX_COMMENTS_LENGTH} символов`;
+const errorMessage = {
+  hashtag: 'Поле заполнено некорректно.',
+  description: `длина комментария не может составлять больше ${MAX_COMMENTS_LENGTH} символов`
+};
+
 const isErrorDescription = (value) => {
   let isValid = true;
 
@@ -22,39 +27,47 @@ const isErrorDescription = (value) => {
   return isValid;
 };
 
-let hashtagsMessage = 'Поле заполнено некорректно.';
 const isErrorHashtag = (value) => {
-  value = value.split(' ');
+  value = value.replace(/\s+/g, ' ').trim().split(' ');
   let isValid = true;
+  const validHachtag = /^#[А-яЁёA-z0-9]{1,19}$/i;
 
-  if (value.length > 5) {
-    hashtagsMessage = 'asdasda';
+  if (value.length > MAX_HASHTAG_COUNT) {
+    errorMessage.hashtag = `Может быть не более ${MAX_HASHTAG_COUNT} хэштегов.`;
     isValid = false;
     return isValid;
   }
 
-  isValid = true;
-  [...value].forEach((elem) => {
-    if (elem > 2) {
-      hashtagsMessage = 'asdasda';
+  const setHashtag = new Set(value);
+  if (setHashtag.size !== value.length) {
+    errorMessage.hashtag = 'Один и тот же хэштег не может быть использован дважды.';
+    isValid = false;
+    return isValid;
+  }
+
+  value.forEach((currentHachtag) => {
+    if (!validHachtag.test(currentHachtag)) {
+      errorMessage.hashtag = 'Хэштег должен начинаться с "#" и может состоять только из букв и чисел.';
       isValid = false;
-      return isValid;
+    }
+
+    if (currentHachtag.length > MAX_HASHTAG_LENGTH) {
+      errorMessage.hashtag = `Максимальная длина одного хэштега ${MAX_HASHTAG_LENGTH} символов, включая решётку.`;
+      isValid = false;
     }
   });
   return isValid;
-  // const test = /(#[А-яЁёA-z0-9]{1,19})/g;
 };
 
+const getHashtagErrorMessage = () => errorMessage.hashtag;
 
 const form = () => {
   const pristine = new Pristine(uploadFormImg, options, true);
 
-  pristine.addValidator(textDescription, isErrorDescription, descriptionMessage);
-  pristine.addValidator(textHashtag, isErrorHashtag, hashtagsMessage);
+  pristine.addValidator(textDescription, isErrorDescription, errorMessage.description);
+  pristine.addValidator(textHashtag, isErrorHashtag, getHashtagErrorMessage);
 };
 
 export {
   form
 };
-
-void (MAX_HASHTAG_COUNT, MAX_HASHTAG_LENGTH, textHashtag);
