@@ -25,8 +25,11 @@ const getRandomIntRange = (min, max) => {
   };
 };
 
+const isEscKey = (evt) => evt.code === 'Escape';
+
 export {
   getRandomIntRange,
   isCount,
-  getRandomInt
+  getRandomInt,
+  isEscKey
 };
