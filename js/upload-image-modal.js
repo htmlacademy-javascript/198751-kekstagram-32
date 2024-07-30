@@ -6,6 +6,10 @@ const uploadImageModal = () => {
   const imgUploadCancel = document.querySelector('.img-upload__cancel');
 
   const onFormKeydown = (evt) => {
+    if (document.activeElement.name === 'hashtags' || document.activeElement.name === 'description') {
+      return;
+    }
+
     if (isEscKey(evt)) {
       closeModal();
     }
