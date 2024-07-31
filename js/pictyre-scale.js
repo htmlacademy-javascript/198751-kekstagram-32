@@ -1,0 +1,3 @@
+const pictureEffect = () => { };
+
+export { pictureEffect };

@@ -1,5 +1,14 @@
 import { isEscKey } from './util';
 import { clearValidator } from './form';
+
+import { form } from './form.js';
+import { editorForm } from './pictyre-effect.js';
+import { pictureEffect } from './pictyre-scale.js';
+
+form();
+editorForm();
+pictureEffect();
+
 const uploadImageModal = () => {
   const imgUploadInput = document.querySelector('.img-upload__input');
   const imgUploadOverlay = document.querySelector('.img-upload__overlay');
