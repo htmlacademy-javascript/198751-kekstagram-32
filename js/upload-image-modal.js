@@ -1,13 +1,28 @@
-import { isEscKey } from './util';
-import { clearValidator } from './form';
+import {
+  isEscKey
+} from './util';
+import {
+  clearValidator
+} from './form';
 
-import { form } from './form.js';
-import { editorForm } from './pictyre-effect.js';
-import { pictureEffect } from './pictyre-scale.js';
+import {
+  form
+} from './form.js';
+import {
+  editorForm
+} from './pictyre-effect.js';
+import {
+  pictureEffect
+} from './pictyre-scale.js';
+import {
+  pictureScale,
+  pictureScaleDefault
+} from './picture-scale.js';
 
 form();
 editorForm();
 pictureEffect();
+pictureScale();
 
 const uploadImageModal = () => {
   const imgUploadInput = document.querySelector('.img-upload__input');
@@ -40,7 +55,10 @@ const uploadImageModal = () => {
     imgUploadCancel.removeEventListener('click', closeModal);
     document.querySelector('.img-upload__form').reset();
     clearValidator();
+    pictureScaleDefault();
   }
 };
 
-export { uploadImageModal };
+export {
+  uploadImageModal
+};
