@@ -61,6 +61,4 @@ const effectsData = {
   }
 };
 
-const editorForm = () => effectsData;
-
-export { editorForm };
+export { effectsData };

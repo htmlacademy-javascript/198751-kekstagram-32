@@ -1,27 +1,13 @@
-import {
-  isEscKey
-} from './util';
-import {
-  clearValidator
-} from './form';
+import { isEscKey } from './util';
+import { clearValidator } from './form';
 
-import {
-  form
-} from './form.js';
-import {
-  editorForm
-} from './pictyre-effect.js';
-import {
-  pictureEffect
-} from './pictyre-scale.js';
-import {
-  pictureScale,
-  pictureScaleDefault
-} from './picture-scale.js';
+import { form } from './form.js';
+import { pictureEffect, pictureEffectreset } from './picture-effect.js';
+import { pictureScale, pictureScaleDefault } from './picture-scale.js';
 
 form();
-editorForm();
 pictureEffect();
+pictureEffectreset();
 pictureScale();
 
 const uploadImageModal = () => {
@@ -56,6 +42,7 @@ const uploadImageModal = () => {
     document.querySelector('.img-upload__form').reset();
     clearValidator();
     pictureScaleDefault();
+    pictureEffectreset();
   }
 };
 
