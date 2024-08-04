@@ -1,64 +1,46 @@
-const effectsData = {
-  chrome: {
-    effectsObj: {
-      range: {
-        min: 0,
-        max: 1,
-      },
-      step: 0.1,
-      start: 1,
-    },
-    filter: 'grayscale',
-    unit: ''
+const effectsStyle = {
+  'none': {
+    min: 0,
+    max: 100,
+    step: 1
   },
-  sepia: {
-    effectsObj: {
-      range: {
-        min: 0,
-        max: 1,
-      },
-      step: 0.1,
-      start: 1,
-    },
-    filter: 'sepia',
-    unit: ''
+  'chrome': {
+    style: 'grayscale',
+    unit: '',
+    min: 0,
+    max: 1,
+    step: 0.1
   },
-  marvin: {
-    effectsObj: {
-      range: {
-        min: 0,
-        max: 100,
-      },
-      step: 1,
-      start: 100,
-    },
-    filter: 'invert',
-    unit: '%'
+  'sepia': {
+    style: 'sepia',
+    unit: '',
+    min: 0,
+    max: 1,
+    step: 0.1
   },
-  phobos: {
-    effectsObj: {
-      range: {
-        min: 1,
-        max: 3,
-      },
-      step: 0.1,
-      start: 3,
-    },
-    filter: 'blur',
-    unit: 'px'
+  'marvin': {
+    style: 'invert',
+    unit: '%',
+    min: 0,
+    max: 100,
+    step: 1
   },
-  heat: {
-    effectsObj: {
-      range: {
-        min: 1,
-        max: 3,
-      },
-      step: 0.1,
-      start: 3,
-    },
-    filter: 'brightness',
-    unit: ''
+  'phobos': {
+    style: 'blur',
+    unit: 'px',
+    min: 0,
+    max: 3,
+    step: 0.1
+  },
+  'heat': {
+    style: 'brightness',
+    unit: '',
+    min: 1,
+    max: 3,
+    step: 0.1
   }
 };
 
-export { effectsData };
+export {
+  effectsStyle
+};
