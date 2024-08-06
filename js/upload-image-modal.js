@@ -1,9 +1,9 @@
 import { isEscKey } from './util';
-import { clearValidator } from './form';
-
-import { form } from './form.js';
+import { form, getIsValid, clearValidator } from './form.js';
 import { pictureEffectInit, pictureEffectReset } from './picture-effect.js';
 import { pictureScale, pictureScaleDefault } from './picture-scale.js';
+
+const uploadFormImg = document.querySelector('.img-upload__form');
 
 form();
 pictureEffectInit();
@@ -43,7 +43,29 @@ const uploadImageModal = () => {
     clearValidator();
     pictureScaleDefault();
   }
+
+  uploadFormImg.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    const isValid = getIsValid();
+
+    if (isValid) {
+      const formData = new FormData(evt.target);
+      fetch(
+        'https://32.javascript.htmlacademy.pro/kekstagram',
+        {
+          method: 'POST',
+          body: formData,
+        },
+      ).then(closeModal)
+        .catch((err) => {
+          console.error(err.message);
+        });
+    }
+  });
+
 };
+
 
 export {
   uploadImageModal
