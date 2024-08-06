@@ -2,6 +2,7 @@ import { isEscKey } from './util';
 import { form, getIsValid, clearValidator } from './form.js';
 import { pictureEffectInit, pictureEffectReset } from './picture-effect.js';
 import { pictureScale, pictureScaleDefault } from './picture-scale.js';
+import { showSuccess } from './message.js';
 
 const uploadFormImg = document.querySelector('.img-upload__form');
 
@@ -44,6 +45,11 @@ const uploadImageModal = () => {
     pictureScaleDefault();
   }
 
+  const onSuccess = () => {
+    closeModal();
+    showSuccess();
+  };
+
   uploadFormImg.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
@@ -57,7 +63,7 @@ const uploadImageModal = () => {
           method: 'POST',
           body: formData,
         },
-      ).then(closeModal)
+      ).then(onSuccess)
         .catch((err) => {
           console.error(err.message);
         });
@@ -78,6 +84,7 @@ export {
 эффект сбрасывается на «Оригинал»;
 поля для ввода хэштегов и комментария очищаются;
 поле загрузки фотографии, стилизованное под букву «О» в логотипе, очищается.
+
 3.4.Если отправка данных прошла успешно, показывается соответствующее сообщение.Разметку сообщения, которая находится в блоке #success внутри шаблона template, нужно разместить перед закрывающим тегом </body >.Сообщение должно удаляться со страницы после нажатия на кнопку.success__button, по нажатию на клавишу Esc и по клику на произвольную область экрана за пределами блока с сообщением.
 
 3.5.Если при отправке данных произошла ошибка запроса, нужно показать соответствующее сообщение.Разметку сообщения, которая находится в блоке #error внутри шаблона template, нужно разместить перед закрывающим тегом </body >.Сообщение должно удаляться со страницы после нажатия на кнопку.error__button, по нажатию на клавишу Esc и по клику на произвольную область экрана за пределами блока с сообщением.В таком случае вся введённая пользователем информация сохраняется, чтобы у него была возможность отправить форму повторно.
