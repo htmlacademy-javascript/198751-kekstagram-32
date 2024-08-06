@@ -64,6 +64,7 @@ const updateSlider = ({
 };
 
 const pictureEffectReset = () => {
+  effectLevel.classList.add('hidden');
   imgUploadPreview.style.filter = null;
   effectLevelSlider.value = null;
 };
@@ -73,10 +74,10 @@ effectsList.addEventListener('change', (evt) => {
 
   if (currentEffect === 'none') {
     pictureEffectReset();
-    effectLevel.style.display = 'none';
+    effectLevel.classList.add('hidden');
     effectLevelSlider.value = null;
   } else {
-    effectLevel.style.display = null;
+    effectLevel.classList.remove('hidden');
     effectLevelSlider.value = currentEffect;
     updateSlider(effectsStyle[currentEffect]);
     setImageStyle();

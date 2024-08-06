@@ -14,8 +14,6 @@ const uploadImageModal = () => {
   const imgUploadOverlay = document.querySelector('.img-upload__overlay');
   const imgUploadCancel = document.querySelector('.img-upload__cancel');
 
-  document.querySelector('.effect-level').style.display = 'none';
-
   const onFormKeydown = (evt) => {
     if (document.activeElement.name === 'hashtags' || document.activeElement.name === 'description') {
       return;
@@ -29,6 +27,7 @@ const uploadImageModal = () => {
   imgUploadInput.addEventListener('input', () => {
     imgUploadOverlay.classList.remove('hidden');
     document.body.classList.add('modal-open');
+    pictureEffectReset();
 
     document.addEventListener('keydown', onFormKeydown);
     imgUploadCancel.addEventListener('click', closeModal);
@@ -43,7 +42,6 @@ const uploadImageModal = () => {
     document.querySelector('.img-upload__form').reset();
     clearValidator();
     pictureScaleDefault();
-    pictureEffectReset();
   }
 };
 
