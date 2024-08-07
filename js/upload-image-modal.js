@@ -1,9 +1,11 @@
 import { isEscKey } from './util';
-import { clearValidator } from './form';
-
-import { form } from './form.js';
+import { form, getIsValid, clearValidator } from './form.js';
 import { pictureEffectInit, pictureEffectReset } from './picture-effect.js';
 import { pictureScale, pictureScaleDefault } from './picture-scale.js';
+import { showSuccess, showError } from './message.js';
+
+const uploadFormImg = document.querySelector('.img-upload__form');
+const imgUploadSubmit = uploadFormImg.querySelector('.img-upload__submit');
 
 form();
 pictureEffectInit();
@@ -15,7 +17,7 @@ const uploadImageModal = () => {
   const imgUploadCancel = document.querySelector('.img-upload__cancel');
 
   const onFormKeydown = (evt) => {
-    if (document.activeElement.name === 'hashtags' || document.activeElement.name === 'description') {
+    if (document.activeElement.name === 'hashtags' || document.activeElement.name === 'description' || document.querySelector('.error')) {
       return;
     }
 
@@ -25,6 +27,7 @@ const uploadImageModal = () => {
   };
 
   imgUploadInput.addEventListener('input', () => {
+    imgUploadSubmit.disabled = false;
     imgUploadOverlay.classList.remove('hidden');
     document.body.classList.add('modal-open');
     pictureEffectReset();
@@ -43,6 +46,39 @@ const uploadImageModal = () => {
     clearValidator();
     pictureScaleDefault();
   }
+
+  const onSuccess = () => {
+    closeModal();
+    showSuccess();
+  };
+
+  uploadFormImg.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    const isValid = getIsValid();
+
+    if (isValid) {
+      imgUploadSubmit.disabled = true;
+      const formData = new FormData(evt.target);
+      fetch(
+        'https://32.javascript.htmlacademy.pro/kekstagram',
+        {
+          method: 'POST',
+          body: formData,
+        },
+      ).then((response) => {
+        if (response.status >= 200 && response.status < 300 && response.ok) {
+          return onSuccess();
+        }
+        throw new Error(showError);
+      })
+        .catch(() => {
+          showError();
+          imgUploadSubmit.disabled = false;
+        });
+    }
+  });
+
 };
 
 export {

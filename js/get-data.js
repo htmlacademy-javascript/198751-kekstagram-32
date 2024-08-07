@@ -129,7 +129,7 @@ const getData = () => ({
   likes: createCountLike(),
   url: createUrlPhothos(),
   description: createTextDescription(),
-  comments: createObjectTextComments()
+  comments: createObjectTextComments(),
 });
 
 export {

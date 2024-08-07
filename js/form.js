@@ -17,6 +17,7 @@ const errorMessage = {
   description: `длина комментария не может составлять больше ${MAX_COMMENTS_LENGTH} символов`
 };
 
+
 const isErrorDescription = (value) => {
   let isValid = true;
 
@@ -64,9 +65,8 @@ const getHashtagErrorMessage = () => errorMessage.hashtag;
 const pristine = new Pristine(uploadFormImg, options, true);
 
 const form = () => {
-
-  pristine.addValidator(textDescription, isErrorDescription, errorMessage.description);
   pristine.addValidator(textHashtag, isErrorHashtag, getHashtagErrorMessage);
+  pristine.addValidator(textDescription, isErrorDescription, errorMessage.description);
 };
 
 const clearValidator = () => {
@@ -74,7 +74,10 @@ const clearValidator = () => {
   pristine.destroy();
 };
 
+const getIsValid = () => pristine.validate();
+
 export {
   form,
-  clearValidator
+  clearValidator,
+  getIsValid
 };
