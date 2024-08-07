@@ -5,6 +5,7 @@ import { pictureScale, pictureScaleDefault } from './picture-scale.js';
 import { showSuccess, showError } from './message.js';
 
 const uploadFormImg = document.querySelector('.img-upload__form');
+const imgUploadSubmit = uploadFormImg.querySelector('.img-upload__submit');
 
 form();
 pictureEffectInit();
@@ -26,6 +27,7 @@ const uploadImageModal = () => {
   };
 
   imgUploadInput.addEventListener('input', () => {
+    imgUploadSubmit.disabled = false;
     imgUploadOverlay.classList.remove('hidden');
     document.body.classList.add('modal-open');
     pictureEffectReset();
@@ -56,6 +58,7 @@ const uploadImageModal = () => {
     const isValid = getIsValid();
 
     if (isValid) {
+      imgUploadSubmit.disabled = true;
       const formData = new FormData(evt.target);
       fetch(
         'https://32.javascript.htmlacademy.pro/kekstagram',
@@ -71,6 +74,7 @@ const uploadImageModal = () => {
       })
         .catch(() => {
           showError();
+          imgUploadSubmit.disabled = false;
         });
     }
   });
