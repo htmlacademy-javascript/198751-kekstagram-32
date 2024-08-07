@@ -2,7 +2,7 @@ import { isEscKey } from './util';
 import { form, getIsValid, clearValidator } from './form.js';
 import { pictureEffectInit, pictureEffectReset } from './picture-effect.js';
 import { pictureScale, pictureScaleDefault } from './picture-scale.js';
-import { showSuccess } from './message.js';
+import { showSuccess, showError } from './message.js';
 
 const uploadFormImg = document.querySelector('.img-upload__form');
 
@@ -16,7 +16,7 @@ const uploadImageModal = () => {
   const imgUploadCancel = document.querySelector('.img-upload__cancel');
 
   const onFormKeydown = (evt) => {
-    if (document.activeElement.name === 'hashtags' || document.activeElement.name === 'description') {
+    if (document.activeElement.name === 'hashtags' || document.activeElement.name === 'description' || document.querySelector('.error')) {
       return;
     }
 
@@ -63,29 +63,20 @@ const uploadImageModal = () => {
           method: 'POST',
           body: formData,
         },
-      ).then(onSuccess)
-        .catch((err) => {
-          console.error(err.message);
+      ).then((response) => {
+        if (response.status >= 200 && response.status < 300 && response.ok) {
+          return onSuccess();
+        }
+        throw new Error(showError);
+      })
+        .catch(() => {
+          showError();
         });
     }
   });
 
 };
 
-
 export {
   uploadImageModal
 };
-
-/*
-3.3.При успешной отправке формы форма редактирования изображения закрывается, все данные, введённые в форму, и контрол фильтра приходят в исходное состояние:
-
-масштаб возвращается к 100 %;
-эффект сбрасывается на «Оригинал»;
-поля для ввода хэштегов и комментария очищаются;
-поле загрузки фотографии, стилизованное под букву «О» в логотипе, очищается.
-
-3.4.Если отправка данных прошла успешно, показывается соответствующее сообщение.Разметку сообщения, которая находится в блоке #success внутри шаблона template, нужно разместить перед закрывающим тегом </body >.Сообщение должно удаляться со страницы после нажатия на кнопку.success__button, по нажатию на клавишу Esc и по клику на произвольную область экрана за пределами блока с сообщением.
-
-3.5.Если при отправке данных произошла ошибка запроса, нужно показать соответствующее сообщение.Разметку сообщения, которая находится в блоке #error внутри шаблона template, нужно разместить перед закрывающим тегом </body >.Сообщение должно удаляться со страницы после нажатия на кнопку.error__button, по нажатию на клавишу Esc и по клику на произвольную область экрана за пределами блока с сообщением.В таком случае вся введённая пользователем информация сохраняется, чтобы у него была возможность отправить форму повторно.
-*/
